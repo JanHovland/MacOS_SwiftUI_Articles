@@ -25,18 +25,24 @@ struct CloudKitArticle {
     static func fetchArticle(predicate:  NSPredicate, completion: @escaping (Result<Article, Error>) -> ()) {
         let query = CKQuery(recordType: RecordType.Article, predicate: predicate)
         let operation = CKQueryOperation(query: query)
-        operation.desiredKeys = ["title",
+        operation.desiredKeys = ["mainType",
+                                 "subType",
+                                 "title",
                                  "introduction",
                                  "url"]
         operation.resultsLimit = 50
         operation.recordFetchedBlock = { record in
             DispatchQueue.main.async {
                 let recordID = record.recordID
+                guard let mainType  = record["mainType"] as? String else { return }
+                guard let subType  = record["subType"] as? String else { return }
                 guard let title  = record["title"] as? String else { return }
                 guard let introduction = record["introduction"] as? String else { return }
                 guard let url = record["url"] as? String else { return }
                  
                 let article = Article(recordID: recordID,
+                                      mainType: mainType,
+                                      subType: subType,
                                       title: title,
                                       introduction: introduction,
                                       url: url)

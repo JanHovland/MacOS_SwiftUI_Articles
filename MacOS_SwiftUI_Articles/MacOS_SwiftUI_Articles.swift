@@ -61,7 +61,8 @@ struct MacOS_SwiftUI_Articles: View {
             switch result {
             case .success(let tutorial):
                 self.articles.append(tutorial)
-                self.articles.sort(by: {$0.title < $1.title})
+                self.articles.sort(by: {$0.mainType.uppercased() < $1.mainType.uppercased()})
+                self.articles.sort(by: {$0.subType.uppercased() < $1.subType.uppercased()})
                 self.message = NSLocalizedString("Fetched all Article data", comment: "MacOS_SwiftUI_Articles")
                 self.message1 = NSLocalizedString("Now all the data is extracted from the Article table on CloudKit", comment: "MacOS_SwiftUI_Articles")
                 self.alertIdentifier = AlertID(id: .first)
@@ -77,6 +78,9 @@ struct MasterView: View {
     var article: Article
     var body: some View {
         VStack (alignment: .leading, spacing: 10) {
+            Text(article.mainType + " - " + article.subType)
+                .font(.system(size: 15, weight: .light, design: .rounded))
+            .foregroundColor(.accentColor)
             Text(article.title)
                 .font(.system(size: 15, weight: .light, design: .rounded))
             Text(article.introduction)
