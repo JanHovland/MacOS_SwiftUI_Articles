@@ -57,7 +57,7 @@ struct MacOS_SwiftUI_Articles: View {
                     /// Dette virker ikke :
                     ///     . background(Color(red: 30, green: 105, blue: 219))
                     ///  OK:
-                    .background(Color.blue)
+                    /// .background(Color.blue)
                     .padding(.top, 5)
                     .padding(.leading, 5)
                     Spacer()
