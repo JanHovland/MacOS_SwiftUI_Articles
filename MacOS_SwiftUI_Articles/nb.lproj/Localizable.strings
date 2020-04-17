@@ -1,12 +1,39 @@
 /* MacOS_SwiftUI_Articles */
 "AddArticle" = "AddArticle";
 
+/* AddArticleView */
+"Article saved" = "Artikkelen lagret";
+
 /* MacOS_SwiftUI_Articles */
 "Cannot show AddArticle" = "Kan ikke vise AddArticle";
+
+/* AddArticleView */
+"Check that all fields have a value" = "Sjekk at alle feltene har en verdi";
+
+/* Quit without saves error question message */
+"Could not save changes while quitting. Quit anyway?" = "Kunne ikke lagre endringene mens du avsluttet. Slutte likevel?";
+
+/* No comment provided by engineer. */
+"Enter article data" = "Legg inn artikkeldata";
+
+/* AddArticleView */
+"Existing data" = "Eksisterende data";
 
 /* MacOS_SwiftUI_Articles */
 "Fetched all Article data" = "Hentet alle artiklene";
 
+/* AddArticleView */
+"Missing data" = "Mangler data";
+
 /* MacOS_SwiftUI_Articles */
 "Now all the data is extracted from the Article table on CloudKit" = "Nå er alle dataene hentet ut fra artikkel tabellen på CloudKit";
+
+/* No comment provided by engineer. */
+"Save article" = "Lagre artikkel";
+
+/* AddArticleView */
+"This article is now stored in CloudKit" = "Denne artikkelen er nå lagret i CloudKit";
+
+/* AddArticleView */
+"This article was stored earlier" = "Denne artikkelen ble lagret tidligere";
 

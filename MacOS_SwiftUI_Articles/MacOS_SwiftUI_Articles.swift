@@ -117,7 +117,7 @@ struct MasterView: View {
                 .font(.system(size: 15, weight: .light, design: .rounded))
             Text(article.title)
                 .font(.system(size: 13, weight: .light, design: .rounded))
-            .font(.system(size: 13, weight: .ultraLight))
+                .font(.system(size: 13, weight: .ultraLight))
             Text(article.introduction)
                 .font(.system(size: 13, weight: .ultraLight))
                 .padding(.leading, 15)
