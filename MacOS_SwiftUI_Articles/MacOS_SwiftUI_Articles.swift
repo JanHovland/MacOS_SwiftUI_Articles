@@ -22,8 +22,8 @@ struct MacOS_SwiftUI_Articles: View {
                  url:"https://sarunw.com/posts/swiftui-buttonstyle/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter")
     ]
 
-    @State private var showNewWindow = NSLocalizedString("AddArticle", comment: "MacOS_SwiftUI_Articles")
-    @State private var cannotShowNewWindow = NSLocalizedString("Cannot show AddArticle", comment: "MacOS_SwiftUI_Articles")
+    private var showNewWindow = NSLocalizedString("AddArticle", comment: "MacOS_SwiftUI_Articles")
+    private var cannotShowNewWindow = NSLocalizedString("Cannot show AddArticle", comment: "MacOS_SwiftUI_Articles")
     
     /// Vise flere vinduer
     class DetailWindowController<RootView: View>: NSWindowController {
