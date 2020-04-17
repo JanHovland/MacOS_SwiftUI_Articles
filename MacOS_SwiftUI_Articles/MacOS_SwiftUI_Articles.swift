@@ -15,22 +15,56 @@ struct MacOS_SwiftUI_Articles: View {
     
     @State private var articles =
         [Article(title: "Getting Started With Combine",
-             introduction: "Maybe you’re not yet ready to jump into SwiftUI but you can still get started with Combine. Here’s a gentle introduction to using Combine to validate user input.",
-             url: "https://useyourloaf.com/blog/getting-started-with-combine/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter"),
+                 introduction: "Maybe you’re not yet ready to jump into SwiftUI but you can still get started with Combine. Here’s a gentle introduction to using Combine to validate user input.",
+                 url: "https://useyourloaf.com/blog/getting-started-with-combine/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter"),
          Article(title: "SwiftUI ButtonStyle",
-             introduction: "SwiftUI makes it very easy to customize a button style. Learn how to create a reusable button style in SwiftUI.",
-             url:"https://sarunw.com/posts/swiftui-buttonstyle/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter")
-         ]
-   
+                 introduction: "SwiftUI makes it very easy to customize a button style. Learn how to create a reusable button style in SwiftUI.",
+                 url:"https://sarunw.com/posts/swiftui-buttonstyle/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter")
+    ]
+    
+    /// Vise flere vinduer
+    class DetailWindowController<RootView: View>: NSWindowController {
+        convenience init(rootView: RootView) {
+            let hostingController = NSHostingController(rootView:
+                rootView.frame(width: 800, height: 500))
+            let window = NSWindow(contentViewController:
+                hostingController)
+            window.setContentSize(NSSize(width: 800, height: 500))
+            self.init(window: window)
+        }
+    }
+    
     @State private var alertIdentifier: AlertID?
     @State private var message: String = ""
     @State private var message1: String = ""
-
+    @State private var vindowCounter = 0
+    
     var body: some View {
         NavigationView {
-            List (articles) { article in
-                NavigationLink(destination: SafariView(url: article.url)) {
-                    MasterView(article: article)
+            VStack {
+                HStack {
+                    Button(vindowCounter == 0 ? "Show New Window" : "Cannot show a new vindoq") {
+                        if self.vindowCounter == 0 {
+                            self.vindowCounter += 1
+                            let controller = DetailWindowController(rootView:
+                                DetailView())
+                            controller.window?.title = "New window"
+                            controller.showWindow(nil)
+                        }
+                    }
+                    .controlSize(ControlSize.small)
+                    /// Dette virker ikke :
+                    ///     . background(Color(red: 30, green: 105, blue: 219))
+                    ///  OK:
+                    ///    .background(Color.blue)
+                    .padding(.top, 5)
+                    .padding(.leading, 5)
+                    Spacer()
+                }
+                List (articles) { article in
+                    NavigationLink(destination: SafariView(url: article.url)) {
+                        MasterView(article: article)
+                    }
                 }
             }
         }
@@ -80,9 +114,9 @@ struct MasterView: View {
         VStack (alignment: .leading, spacing: 10) {
             Text(article.mainType + " - " + article.subType)
                 .font(.system(size: 15, weight: .light, design: .rounded))
-            .foregroundColor(.accentColor)
             Text(article.title)
-                .font(.system(size: 15, weight: .light, design: .rounded))
+                .font(.system(size: 13, weight: .light, design: .rounded))
+            .font(.system(size: 13, weight: .ultraLight))
             Text(article.introduction)
                 .font(.system(size: 13, weight: .ultraLight))
                 .padding(.leading, 15)
@@ -92,5 +126,15 @@ struct MasterView: View {
         .padding(.top, 5)
     }
 }
+
+struct DetailView: View {
+    var body: some View {
+        Text("Second View")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+
+
 
 
