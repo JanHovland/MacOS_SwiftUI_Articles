@@ -21,6 +21,9 @@ struct MacOS_SwiftUI_Articles: View {
                  introduction: "SwiftUI makes it very easy to customize a button style. Learn how to create a reusable button style in SwiftUI.",
                  url:"https://sarunw.com/posts/swiftui-buttonstyle/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter")
     ]
+
+    @State private var showNewWindow = NSLocalizedString("AddArticle", comment: "MacOS_SwiftUI_Articles")
+    @State private var cannotShowNewWindow = NSLocalizedString("Cannot show AddArticle", comment: "MacOS_SwiftUI_Articles")
     
     /// Vise flere vinduer
     class DetailWindowController<RootView: View>: NSWindowController {
@@ -43,12 +46,11 @@ struct MacOS_SwiftUI_Articles: View {
         NavigationView {
             VStack {
                 HStack {
-                    Button(vindowCounter == 0 ? "Show New Window" : "Cannot show a new vindoq") {
+                    Button(vindowCounter == 0 ? showNewWindow : cannotShowNewWindow) {
                         if self.vindowCounter == 0 {
                             self.vindowCounter += 1
-                            let controller = DetailWindowController(rootView:
-                                DetailView())
-                            controller.window?.title = "New window"
+                            let controller = DetailWindowController(rootView: AddArticleView())
+                            controller.window?.title = self.showNewWindow
                             controller.showWindow(nil)
                         }
                     }
@@ -127,12 +129,6 @@ struct MasterView: View {
     }
 }
 
-struct DetailView: View {
-    var body: some View {
-        Text("Second View")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
 
 
 

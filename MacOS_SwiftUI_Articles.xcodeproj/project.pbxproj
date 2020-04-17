@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB03D07024499D6B00E79534 /* AddArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03D06F24499D6B00E79534 /* AddArticleView.swift */; };
 		DB67C3752448DD3E004F649F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB67C3732448DD3E004F649F /* Localizable.strings */; };
 		DBF59DFB2448C3AE006D8BFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF59DFA2448C3AE006D8BFC /* AppDelegate.swift */; };
 		DBF59DFD2448C3AE006D8BFC /* MacOS_SwiftUI_Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF59DFC2448C3AE006D8BFC /* MacOS_SwiftUI_Articles.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB03D06F24499D6B00E79534 /* AddArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleView.swift; sourceTree = "<group>"; };
 		DB67C3742448DD3E004F649F /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB67C3762448DD3E004F649F /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
 		DBF59DF72448C3AE006D8BFC /* MacOS_SwiftUI_Articles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOS_SwiftUI_Articles.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +59,7 @@
 			children = (
 				DBF59DF92448C3AE006D8BFC /* MacOS_SwiftUI_Articles */,
 				DBF59DF82448C3AE006D8BFC /* Products */,
-				DBF59E102448C4C4006D8BFC /* Frameworks */,
+				DBF59E1B2448CA8B006D8BFC /* Utilities */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,10 +74,11 @@
 		DBF59DF92448C3AE006D8BFC /* MacOS_SwiftUI_Articles */ = {
 			isa = PBXGroup;
 			children = (
-				DBF59E1B2448CA8B006D8BFC /* Utilities */,
-				DBF59E132448C871006D8BFC /* CloudKit */,
+				DB03D06F24499D6B00E79534 /* AddArticleView.swift */,
 				DBF59DFA2448C3AE006D8BFC /* AppDelegate.swift */,
 				DBF59E012448C3B0006D8BFC /* Assets.xcassets */,
+				DBF59E132448C871006D8BFC /* CloudKit */,
+				DBF59E102448C4C4006D8BFC /* Frameworks */,
 				DBF59E092448C3B0006D8BFC /* Info.plist */,
 				DB67C3732448DD3E004F649F /* Localizable.strings */,
 				DBF59DFC2448C3AE006D8BFC /* MacOS_SwiftUI_Articles.swift */,
@@ -103,6 +106,7 @@
 				DBF59E112448C4C4006D8BFC /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DBF59E132448C871006D8BFC /* CloudKit */ = {
@@ -209,6 +213,7 @@
 				DBF59E152448C8AB006D8BFC /* CloudKitArticle.swift in Sources */,
 				DBF59E1A2448C9CA006D8BFC /* SafariView.swift in Sources */,
 				DBF59E182448C963006D8BFC /* Article.swift in Sources */,
+				DB03D07024499D6B00E79534 /* AddArticleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
