@@ -9,6 +9,8 @@
 import SwiftUI
 import CloudKit
 
+var selectedRecordId: CKRecord.ID?
+
 struct MacOS_SwiftUI_Articles: View {
     
     /// Dersom du legger inn nye AppIcon, reset Xcode, kjør CleanMyMacX og kompiler på nytt
@@ -21,7 +23,7 @@ struct MacOS_SwiftUI_Articles: View {
                  introduction: "SwiftUI makes it very easy to customize a button style. Learn how to create a reusable button style in SwiftUI.",
                  url:"https://sarunw.com/posts/swiftui-buttonstyle/?utm_campaign=AppCoda%20Weekly&utm_medium=email&utm_source=Revue%20newsletter")
     ]
-
+    
     private var showNewWindow = NSLocalizedString("AddArticle", comment: "MacOS_SwiftUI_Articles")
     private var cannotShowNewWindow = NSLocalizedString("Cannot show AddArticle", comment: "MacOS_SwiftUI_Articles")
     
@@ -41,6 +43,10 @@ struct MacOS_SwiftUI_Articles: View {
     @State private var message1: String = ""
     @State private var vindowCounter = 0
     
+    @State private var indexSetDelete = IndexSet()
+    
+    // @State private var article1: Article()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -54,19 +60,38 @@ struct MacOS_SwiftUI_Articles: View {
                         }
                     }
                     .controlSize(ControlSize.small)
-                    /// Dette virker ikke :
-                    ///     . background(Color(red: 30, green: 105, blue: 219))
-                    ///  OK:
-                    /// .background(Color.blue)
-                    .padding(.top, 5)
-                    .padding(.leading, 5)
+                        /// Dette virker ikke :
+                        ///     . background(Color(red: 30, green: 105, blue: 219))
+                        ///  OK:
+                        /// .background(Color.blue)
+                        .padding(.top, 5)
+                        .padding(.leading, 5)
+                    
+                    Button(action: {
+                        // self.refresh()
+                    }, label: {
+                        HStack {
+                            Text("Refresh")
+                        }
+                    })
+                        .controlSize(ControlSize.small)
+                        .padding(.top, 5)
+                        .padding(.leading, 5)
+                    
                     Spacer()
+                    
                 }
                 List (articles) { article in
-                    NavigationLink(destination: SafariView(url: article.url)) {
+                    NavigationLink(destination: SafariView(url: article.url, recordID: article.recordID!)) {
                         MasterView(article: article)
                     }
+                    
                 }
+                    
+                .onDeleteCommand {
+                    self.deleteArticle(recordID: selectedRecordId!)
+                }
+                
             }
         }
         .listStyle(SidebarListStyle())
@@ -107,6 +132,11 @@ struct MacOS_SwiftUI_Articles: View {
             }
         }
     }
+    
+    func deleteArticle(recordID: CKRecord.ID?) {
+        print("Article is deleted")
+    }
+    
 }
 
 struct MasterView: View {

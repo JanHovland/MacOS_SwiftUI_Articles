@@ -8,12 +8,14 @@
 
 import SwiftUI
 import WebKit
+import CloudKit
 
 struct SafariView : NSViewRepresentable {
     var url: String
-
+    var recordID: CKRecord.ID?
+    
     func updateNSView(_ nsView: WKWebView, context: Context) {
-        
+        selectedRecordId = recordID
     }
     
     func makeNSView(context: Context) -> WKWebView  {
