@@ -45,6 +45,8 @@ struct MacOS_SwiftUI_Articles: View {
     
     @State private var indexSetDelete = IndexSet()
     
+    @State private var dialogResult = ""
+    
     // @State private var article1: Article()
     
     var body: some View {
@@ -89,7 +91,8 @@ struct MacOS_SwiftUI_Articles: View {
                 }
                     
                 .onDeleteCommand {
-                    self.deleteArticle(recordID: selectedRecordId!)
+                    /// Sjekk om denne artikkelen virkelig skal slettes
+                    self.CheckDeleteArticle(recordID: selectedRecordId!)
                 }
                 
             }
@@ -97,7 +100,8 @@ struct MacOS_SwiftUI_Articles: View {
         .listStyle(SidebarListStyle())
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
-            self.refresh()
+            /// Henter alle artiklene
+            self.Refresh()
         }
         .alert(item: $alertIdentifier) { alert in
             switch alert.id {
@@ -106,13 +110,14 @@ struct MacOS_SwiftUI_Articles: View {
             case .second:
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
             case .third:
-                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .default(Text("OK"), action: {self.DeleteAction()}),
+                                                                                      secondaryButton: .cancel())
             }
         }
     }
     
     /// Rutine for å friske opp bildet
-    func refresh() {
+    func Refresh() {
         /// Sletter alt tidligere innhold i person
         articles.removeAll()
         /// Fetch all tutorials from CloudKit
@@ -132,11 +137,22 @@ struct MacOS_SwiftUI_Articles: View {
             }
         }
     }
-    
-    func deleteArticle(recordID: CKRecord.ID?) {
-        print("Article is deleted")
+
+    /// Spør om denne artikkelen virkelig skal slettes
+    func CheckDeleteArticle(recordID: CKRecord.ID?) {
+        self.message = NSLocalizedString("Delete this article?", comment: "MacOS_SwiftUI_Articles")
+        self.message1 = NSLocalizedString("Do you really want to delete this article?", comment: "MacOS_SwiftUI_Articles")
+        
+        self.alertIdentifier = AlertID(id: .third)
     }
-    
+
+    /// Her slettes artikkelen i CloudKit og så kalles: self.Refresh
+    func DeleteAction() {
+        print("Article is deleted")
+        
+        /// Deretter hentesr alle resterende artikler
+        self.Refresh()
+    }
 }
 
 struct MasterView: View {

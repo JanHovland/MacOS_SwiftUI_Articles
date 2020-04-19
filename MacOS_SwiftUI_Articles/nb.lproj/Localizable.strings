@@ -13,6 +13,12 @@
 /* Quit without saves error question message */
 "Could not save changes while quitting. Quit anyway?" = "Kunne ikke lagre endringene mens du avsluttet. Slutte likevel?";
 
+/* MacOS_SwiftUI_Articles */
+"Delete this article?" = "Slette denne artikkelen?";
+
+/* MacOS_SwiftUI_Articles */
+"Do you really want to delete this article?" = "Vil du virkelig slette denne artikkelen?";
+
 /* No comment provided by engineer. */
 "Enter article data" = "Legg inn artikkeldata";
 
@@ -26,7 +32,7 @@
 "Missing data" = "Mangler data";
 
 /* MacOS_SwiftUI_Articles */
-"Now all the data is extracted from the Article table on CloudKit" = "Nå er alle dataene hentet ut fra artikkel tabellen på CloudKit";
+"Now all the data is extracted from the Article table on CloudKit" = "Nå er alle dataene hentet ut fra artikkel tabellen i CloudKit";
 
 /* No comment provided by engineer. */
 "Save article" = "Lagre artikkel";
