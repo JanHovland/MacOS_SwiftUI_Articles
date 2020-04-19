@@ -70,7 +70,7 @@ struct MacOS_SwiftUI_Articles: View {
                         .padding(.leading, 5)
                     
                     Button(action: {
-                        // self.refresh()
+                        self.Refresh(showAlert: true)
                     }, label: {
                         HStack {
                             Text("Refresh")
@@ -101,7 +101,7 @@ struct MacOS_SwiftUI_Articles: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             /// Henter alle artiklene
-            self.Refresh()
+            self.Refresh(showAlert: false)
         }
         .alert(item: $alertIdentifier) { alert in
             switch alert.id {
@@ -111,13 +111,14 @@ struct MacOS_SwiftUI_Articles: View {
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
             case .delete:
                 return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
-                                                                                      secondaryButton: .default(Text("OK"), action: {self.DeleteAction()}))
+                             secondaryButton: .default(Text("OK"), action: {self.DeleteAction()}))
             }
         }
     }
     
     /// Rutine for å friske opp bildet
-    func Refresh() {
+    /// Sender bare alert når showAlert er true
+    func Refresh(showAlert: Bool) {
         /// Sletter alt tidligere innhold i person
         articles.removeAll()
         /// Fetch all tutorials from CloudKit
@@ -130,7 +131,9 @@ struct MacOS_SwiftUI_Articles: View {
                 self.articles.sort(by: {$0.subType.uppercased() < $1.subType.uppercased()})
                 self.message = NSLocalizedString("Fetched all Article data", comment: "MacOS_SwiftUI_Articles")
                 self.message1 = NSLocalizedString("Now all the data is extracted from the Article table on CloudKit", comment: "MacOS_SwiftUI_Articles")
-                self.alertIdentifier = AlertID(id: .first)
+                if showAlert == true {
+                    self.alertIdentifier = AlertID(id: .first)
+                }
             case .failure(let err):
                 self.message = err.localizedDescription
                 self.alertIdentifier = AlertID(id: .first)
@@ -142,16 +145,25 @@ struct MacOS_SwiftUI_Articles: View {
     func CheckDeleteArticle(recordID: CKRecord.ID?) {
         self.message = NSLocalizedString("Delete this article?", comment: "MacOS_SwiftUI_Articles")
         self.message1 = NSLocalizedString("Do you really want to delete this article?", comment: "MacOS_SwiftUI_Articles")
-        
         self.alertIdentifier = AlertID(id: .delete)
     }
 
     /// Her slettes artikkelen i CloudKit og så kalles: self.Refresh
     func DeleteAction() {
         print("Article is deleted")
-        
-        /// Deretter hentesr alle resterende artikler
-        self.Refresh()
+        /// Slette artikkelen i CloudKit
+        CloudKitArticle.deleteArticle(recordID: selectedRecordId!) { (result) in
+           switch result {
+           case .success :
+               self.message = NSLocalizedString("Successfully deleted the article", comment: "MacOS_SwiftUI_Articles")
+               self.alertIdentifier = AlertID(id: .first)
+           case .failure(let err):
+               self.message = err.localizedDescription
+               self.alertIdentifier = AlertID(id: .first)
+           }
+       }
+//        /// Deretter hentesr alle resterende artikler
+//        self.Refresh(showAlert: false)
     }
 }
 
