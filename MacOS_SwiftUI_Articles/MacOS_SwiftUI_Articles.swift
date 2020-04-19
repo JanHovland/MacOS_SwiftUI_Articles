@@ -42,12 +42,8 @@ struct MacOS_SwiftUI_Articles: View {
     @State private var message: String = ""
     @State private var message1: String = ""
     @State private var vindowCounter = 0
-    
     @State private var indexSetDelete = IndexSet()
-    
     @State private var dialogResult = ""
-    
-    // @State private var article1: Article()
     
     var body: some View {
         NavigationView {
@@ -162,8 +158,6 @@ struct MacOS_SwiftUI_Articles: View {
                self.alertIdentifier = AlertID(id: .first)
            }
        }
-//        /// Deretter hentesr alle resterende artikler
-//        self.Refresh(showAlert: false)
     }
 }
 
@@ -175,7 +169,6 @@ struct MasterView: View {
                 .font(.system(size: 15, weight: .light, design: .rounded))
             Text(article.title)
                 .font(.system(size: 13, weight: .light, design: .rounded))
-                .font(.system(size: 13, weight: .ultraLight))
             Text(article.introduction)
                 .font(.system(size: 13, weight: .ultraLight))
                 .padding(.leading, 15)

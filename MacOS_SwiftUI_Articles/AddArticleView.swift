@@ -29,7 +29,7 @@ struct AddArticleView: View {
                         .padding(.top, 50)
                         .padding(.bottom, 30)
                 }
-                InputField(heading: "MinType", placeHolder: "Enter mainType", value: self.$mainType)
+                InputField(heading: "MainType", placeHolder: "Enter mainType", value: self.$mainType)
                 InputField(heading: "SubType", placeHolder: "Enter subType", value: self.$subType)
                 InputField(heading: "Title", placeHolder: "Enter Title", value: self.$title)
                 InputField(heading: "Introduction", placeHolder: "Enter Introduction", value: self.$introduction)
