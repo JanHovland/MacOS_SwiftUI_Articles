@@ -109,7 +109,7 @@ struct MacOS_SwiftUI_Articles: View {
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
             case .second:
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-            case .third:
+            case .delete:
                 return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
                                                                                       secondaryButton: .default(Text("OK"), action: {self.DeleteAction()}))
             }
@@ -143,7 +143,7 @@ struct MacOS_SwiftUI_Articles: View {
         self.message = NSLocalizedString("Delete this article?", comment: "MacOS_SwiftUI_Articles")
         self.message1 = NSLocalizedString("Do you really want to delete this article?", comment: "MacOS_SwiftUI_Articles")
         
-        self.alertIdentifier = AlertID(id: .third)
+        self.alertIdentifier = AlertID(id: .delete)
     }
 
     /// Her slettes artikkelen i CloudKit og så kalles: self.Refresh

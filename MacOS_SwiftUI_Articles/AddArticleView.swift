@@ -56,8 +56,9 @@ struct AddArticleView: View {
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
             case .second:
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-            case .third:
-                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+            case .delete:
+                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
+                                                                                      secondaryButton: .default(Text("OK"), action: {}))
             }
         }
     }
