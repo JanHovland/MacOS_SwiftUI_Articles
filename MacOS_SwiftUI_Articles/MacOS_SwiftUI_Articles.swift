@@ -110,8 +110,8 @@ struct MacOS_SwiftUI_Articles: View {
             case .second:
                 return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
             case .third:
-                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .default(Text("OK"), action: {self.DeleteAction()}),
-                                                                                      secondaryButton: .cancel())
+                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
+                                                                                      secondaryButton: .default(Text("OK"), action: {self.DeleteAction()}))
             }
         }
     }
