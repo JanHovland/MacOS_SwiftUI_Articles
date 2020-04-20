@@ -32,48 +32,46 @@ struct AddArticleView: View {
     ]
     
     var body: some View {
-        NavigationView {
-            Form {
-                VStack {
-                    HStack (alignment: .center) {
-                        Text("Enter a new article")
-                            .font(.system(size: 35, weight: .ultraLight, design: .rounded))
-                            .padding(.top, 50)
-                            .padding(.bottom, 30)
+        Form {
+            VStack {
+                HStack (alignment: .center) {
+                    Text("Enter a new article")
+                        .font(.system(size: 35, weight: .ultraLight, design: .rounded))
+                        .padding(.top, 50)
+                        .padding(.bottom, 30)
+                }
+                
+                InputMainType(heading:  NSLocalizedString("MainType     ", comment: "AddArticleView"), mainTypes:   mainTypes,            spaceing: 10, value: $mainType)
+                InputSubType(heading:   NSLocalizedString("SubType      ", comment: "AddArticleView"), subTypes:    subTypes,             spaceing: 10, value: $subType)
+                InputTextField(heading: NSLocalizedString("Title        ", comment: "AddArticleView"), placeHolder: "Enter Title",        spaceing: 37, value: self.$title)
+                InputTextField(heading: NSLocalizedString("Introduction ", comment: "AddArticleView"), placeHolder: "Enter Introduction", spaceing: 17, value: self.$introduction)
+                InputTextField(heading: NSLocalizedString("Url          ", comment: "AddArticleView"), placeHolder: "Enter Url",          spaceing: 42, value: self.$url)
+                
+                Spacer()
+                
+                Button(action: {
+                    self.saveArticle(mainType: self.mainType,
+                                     subType: self.subType,
+                                     title: self.title,
+                                     introduction: self.introduction,
+                                     url: self.url)
+                }, label: {
+                    HStack {
+                        Text("Save article")
                     }
-                    
-                    InputMainType(heading:  NSLocalizedString("MainType     ", comment: "AddArticleView"), mainTypes:   mainTypes,            spaceing: 10, value: $mainType)
-                    InputSubType(heading:   NSLocalizedString("SubType      ", comment: "AddArticleView"), subTypes:    subTypes,             spaceing: 10, value: $subType)
-                    InputTextField(heading: NSLocalizedString("Title        ", comment: "AddArticleView"), placeHolder: "Enter Title",        spaceing: 37, value: self.$title)
-                    InputTextField(heading: NSLocalizedString("Introduction ", comment: "AddArticleView"), placeHolder: "Enter Introduction", spaceing: 17, value: self.$introduction)
-                    InputTextField(heading: NSLocalizedString("Url          ", comment: "AddArticleView"), placeHolder: "Enter Url",          spaceing: 42, value: self.$url)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        self.saveArticle(mainType: self.mainType,
-                                         subType: self.subType,
-                                         title: self.title,
-                                         introduction: self.introduction,
-                                         url: self.url)
-                    }, label: {
-                        HStack {
-                            Text("Save article")
-                        }
-                    })
-                        .controlSize(ControlSize.small)
-                }
+                })
+                    .controlSize(ControlSize.small)
             }
-            .alert(item: $alertIdentifier) { alert in
-                switch alert.id {
-                case .first:
-                    return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-                case .second:
-                    return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-                case .delete:
-                    return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
-                                 secondaryButton: .default(Text("OK"), action: {}))
-                }
+        }
+        .alert(item: $alertIdentifier) { alert in
+            switch alert.id {
+            case .first:
+                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+            case .second:
+                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+            case .delete:
+                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
+                             secondaryButton: .default(Text("OK"), action: {}))
             }
         }
     }
@@ -148,8 +146,8 @@ struct InputMainType: View {
     var body: some View {
         HStack(alignment: .center, spacing: CGFloat(spaceing)) {
             Text(heading)
-                /// .font(... virker ikke.
-                /// .font(.custom("Menlo Normal", size: 15))
+            /// .font(... virker ikke.
+            /// .font(.custom("Menlo Normal", size: 15))
             Picker(selection: $value, label: Text("")) {
                 ForEach(0..<mainTypes.count) { index in
                     Text(self.mainTypes[index]).tag(index)
@@ -169,8 +167,8 @@ struct InputSubType: View {
     var body: some View {
         HStack(alignment: .center, spacing: CGFloat(spaceing)) {
             Text(heading)
-                /// .font(... virker ikke.
-                /// .font(.custom("Menlo Normal", size: 15))
+            /// .font(... virker ikke.
+            /// .font(.custom("Menlo Normal", size: 15))
             Picker(selection: $value, label: Text("")) {
                 ForEach(0..<subTypes.count) { index in
                     Text(self.subTypes[index]).tag(index)
