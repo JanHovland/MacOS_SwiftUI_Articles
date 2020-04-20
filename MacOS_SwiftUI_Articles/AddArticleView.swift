@@ -10,70 +10,83 @@ import SwiftUI
 
 struct AddArticleView: View {
     
-    @State private var mainType = ""
-    @State private var subType = ""
+    @State private var mainType = 0
+    @State private var subType = 0
     @State private var title = ""
     @State private var introduction = ""
     @State private var url = ""
-    
     @State private var alertIdentifier: AlertID?
     @State private var message: String = ""
     @State private var message1: String = ""
+    @State private var selectedAnimalIndex: Int = 0
+    
+    private var mainTypes = [
+        "MacOS",
+        "SwiftUI"
+    ]
+    
+    private var subTypes = [
+        "Button",
+        "Text",
+        "TextField"
+    ]
     
     var body: some View {
-        Form {
-            VStack {
-                HStack (alignment: .center) {
-                    Text("Enter article data")
-                        .font(.system(size: 35, weight: .ultraLight, design: .rounded))
-                        .padding(.top, 50)
-                        .padding(.bottom, 30)
-                }
-                InputField(heading: "MainType", placeHolder: "Enter mainType", value: self.$mainType)
-                InputField(heading: "SubType", placeHolder: "Enter subType", value: self.$subType)
-                InputField(heading: "Title", placeHolder: "Enter Title", value: self.$title)
-                InputField(heading: "Introduction", placeHolder: "Enter Introduction", value: self.$introduction)
-                InputField(heading: "Url", placeHolder: "Enter Url", value: self.$url)
-                Spacer()
-                
-                Button(action: {
-                    self.saveArticle(mainType: self.mainType,
-                                     subType: self.subType,
-                                     title: self.title,
-                                     introduction: self.introduction,
-                                     url: self.url)
-                }, label: {
-                    HStack {
-                        Text("Save article")
+        NavigationView {
+            Form {
+                VStack {
+                    HStack (alignment: .center) {
+                        Text("Enter a new article")
+                            .font(.system(size: 35, weight: .ultraLight, design: .rounded))
+                            .padding(.top, 50)
+                            .padding(.bottom, 30)
                     }
-                })
-                    .controlSize(ControlSize.small)
+                    
+                    InputMainType(heading:  NSLocalizedString("MainType     ", comment: "AddArticleView"), mainTypes:   mainTypes,            spaceing: 10, value: $mainType)
+                    InputSubType(heading:   NSLocalizedString("SubType      ", comment: "AddArticleView"), subTypes:    subTypes,             spaceing: 10, value: $subType)
+                    InputTextField(heading: NSLocalizedString("Title        ", comment: "AddArticleView"), placeHolder: "Enter Title",        spaceing: 37, value: self.$title)
+                    InputTextField(heading: NSLocalizedString("Introduction ", comment: "AddArticleView"), placeHolder: "Enter Introduction", spaceing: 17, value: self.$introduction)
+                    InputTextField(heading: NSLocalizedString("Url          ", comment: "AddArticleView"), placeHolder: "Enter Url",          spaceing: 42, value: self.$url)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.saveArticle(mainType: self.mainType,
+                                         subType: self.subType,
+                                         title: self.title,
+                                         introduction: self.introduction,
+                                         url: self.url)
+                    }, label: {
+                        HStack {
+                            Text("Save article")
+                        }
+                    })
+                        .controlSize(ControlSize.small)
+                }
             }
-        }
-        .alert(item: $alertIdentifier) { alert in
-            switch alert.id {
-            case .first:
-                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-            case .second:
-                return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
-            case .delete:
-                return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
-                                                                                      secondaryButton: .default(Text("OK"), action: {}))
+            .alert(item: $alertIdentifier) { alert in
+                switch alert.id {
+                case .first:
+                    return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+                case .second:
+                    return Alert(title: Text(self.message), message: Text(self.message1), dismissButton: .cancel())
+                case .delete:
+                    return Alert(title: Text(self.message), message: Text(self.message1), primaryButton: .cancel(),
+                                 secondaryButton: .default(Text("OK"), action: {}))
+                }
             }
         }
     }
     
-    func saveArticle(mainType: String,
-                     subType: String,
+    func saveArticle(mainType: Int,
+                     subType: Int,
                      title: String,
                      introduction: String,
                      url: String) {
         
-        if self.mainType.count > 0,
-            self.subType.count > 0,
-            self.title.count > 0,
+        if  self.title.count > 0,
             self.introduction.count > 0,
-            self.subType.count > 0  {
+            self.url.count > 0  {
             
             /// Sjekker om denne posten finnes fra før
             CloudKitArticle.doesArticleExist(introduction: self.introduction) { (result) in
@@ -82,8 +95,10 @@ struct AddArticleView: View {
                     self.message1 = NSLocalizedString("This article was stored earlier", comment: "AddArticleView")
                     self.alertIdentifier = AlertID(id: .first)
                 } else {
-                    let article = Article(mainType: self.mainType,
-                                          subType: self.subType,
+                    let mainType = self.mainTypes[mainType]
+                    let subType = self.subTypes[subType]
+                    let article = Article(mainType: mainType,
+                                          subType: subType,
                                           title: self.title,
                                           introduction: self.introduction,
                                           url: self.url)
@@ -108,16 +123,62 @@ struct AddArticleView: View {
     }
 }
 
-struct InputField: View {
+struct InputTextField: View {
     var heading: String
     var placeHolder: String
+    var spaceing: Int
     @Binding var value: String
     var body: some View {
-        VStack (alignment: .leading, spacing: 0) {
+        HStack(alignment: .center, spacing: CGFloat(spaceing)) {
             Text(heading)
+            /// .font(... virker ikke.
+            /// .font(.custom("Menlo Normal", size: 15))
             TextField(placeHolder, text: $value)
         }
-        .padding(.leading, 10)
+        .padding(10)
     }
 }
+
+struct InputMainType: View {
+    var heading: String
+    var mainTypes: [String]
+    var spaceing: Int
+    @Binding var value: Int
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: CGFloat(spaceing)) {
+            Text(heading)
+                /// .font(... virker ikke.
+                /// .font(.custom("Menlo Normal", size: 15))
+            Picker(selection: $value, label: Text("")) {
+                ForEach(0..<mainTypes.count) { index in
+                    Text(self.mainTypes[index]).tag(index)
+                }
+            }
+        }
+        .padding(10)
+    }
+}
+
+struct InputSubType: View {
+    var heading: String
+    var subTypes: [String]
+    var spaceing: Int
+    @Binding var value: Int
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: CGFloat(spaceing)) {
+            Text(heading)
+                /// .font(... virker ikke.
+                /// .font(.custom("Menlo Normal", size: 15))
+            Picker(selection: $value, label: Text("")) {
+                ForEach(0..<subTypes.count) { index in
+                    Text(self.subTypes[index]).tag(index)
+                }
+            }
+        }
+        .padding(10)
+    }
+}
+
 

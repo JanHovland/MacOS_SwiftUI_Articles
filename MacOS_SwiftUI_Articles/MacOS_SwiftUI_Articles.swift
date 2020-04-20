@@ -50,12 +50,12 @@ struct MacOS_SwiftUI_Articles: View {
             VStack {
                 HStack {
                     Button(vindowCounter == 0 ? showNewWindow : cannotShowNewWindow) {
-                        if self.vindowCounter == 0 {
-                            self.vindowCounter += 1
+//                        if self.vindowCounter == 0 {
+//                            self.vindowCounter += 1
                             let controller = DetailWindowController(rootView: AddArticleView())
                             controller.window?.title = self.showNewWindow
                             controller.showWindow(nil)
-                        }
+//                        }
                     }
                     .controlSize(ControlSize.small)
                         /// Dette virker ikke :
