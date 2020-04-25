@@ -164,16 +164,16 @@ struct MacOS_SwiftUI_Articles: View {
 struct MasterView: View {
     var article: Article
     var body: some View {
-        VStack (alignment: .leading, spacing: 10) {
-            Text(article.mainType + " - " + article.subType)
-                .font(.system(size: 15, weight: .light, design: .rounded))
+        VStack (alignment: .leading, spacing: 5) {
+//            Text(article.mainType + " - " + article.subType)
+//                .font(.system(size: 15, weight: .light, design: .rounded))
             Text(article.title)
                 .font(.system(size: 13, weight: .light, design: .rounded))
             Text(article.introduction)
                 .font(.system(size: 13, weight: .ultraLight))
                 .padding(.leading, 15)
                 /// .frame gjør at en lang tekst spittes opp i flere linjer uten at enmå legge inn \n
-                .frame(width: 250)
+                .frame(width: 400)
         }
         .padding(.top, 5)
     }
