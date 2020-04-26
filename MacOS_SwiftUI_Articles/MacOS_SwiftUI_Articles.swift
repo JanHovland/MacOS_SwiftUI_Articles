@@ -31,9 +31,9 @@ struct MacOS_SwiftUI_Articles: View {
     class DetailWindowController<RootView: View>: NSWindowController {
         convenience init(rootView: RootView) {
             let hostingController = NSHostingController(rootView:
-                rootView.frame(width: 800, height: 500))
+                rootView.frame(width: 700, height: 450))
             let window = NSWindow(contentViewController: hostingController)
-            window.setContentSize(NSSize(width: 800, height: 500))
+            window.setContentSize(NSSize(width: 700, height: 450))
             self.init(window: window)
         }
     }
