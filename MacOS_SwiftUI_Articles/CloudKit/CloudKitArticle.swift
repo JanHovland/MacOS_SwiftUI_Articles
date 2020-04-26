@@ -110,23 +110,7 @@ struct CloudKitArticle {
             })
         }
     }
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // MARK: - fetching from CloudKit
     static func fetchArticle(predicate:  NSPredicate, completion: @escaping (Result<Article, Error>) -> ()) {
         let query = CKQuery(recordType: RecordType.Article, predicate: predicate)
@@ -142,10 +126,14 @@ struct CloudKitArticle {
                 let recordID = record.recordID
                 guard let mainType  = record["mainType"] as? String else { return }
                 guard let subType  = record["subType"] as? String else { return }
-                guard let title  = record["title"] as? String else { return }
-                guard let introduction = record["introduction"] as? String else { return }
+                guard let title1  = record["title"] as? String else { return }
+                guard let introduction1 = record["introduction"] as? String else { return }
                 guard let url = record["url"] as? String else { return }
-                 
+                
+                /// Fjerner eventuelle linjeskift med et balnkt tegn
+                let title = title1.replacingOccurrences(of: "\n", with: "")
+                let introduction = introduction1.replacingOccurrences(of: "\n", with: "")
+ 
                 let article = Article(recordID: recordID,
                                       mainType: mainType,
                                       subType: subType,

@@ -123,8 +123,9 @@ struct MacOS_SwiftUI_Articles: View {
             switch result {
             case .success(let tutorial):
                 self.articles.append(tutorial)
-                self.articles.sort(by: {$0.mainType.uppercased() < $1.mainType.uppercased()})
-                self.articles.sort(by: {$0.subType.uppercased() < $1.subType.uppercased()})
+                self.articles.sort(by: {$0.title.uppercased() < $1.title.uppercased()})
+//                self.articles.sort(by: {$0.mainType.uppercased() < $1.mainType.uppercased()})
+//                self.articles.sort(by: {$0.subType.uppercased() < $1.subType.uppercased()})
                 self.message = NSLocalizedString("Fetched all Article data", comment: "MacOS_SwiftUI_Articles")
                 self.message1 = NSLocalizedString("Now all the data is extracted from the Article table on CloudKit", comment: "MacOS_SwiftUI_Articles")
                 if showAlert == true {
