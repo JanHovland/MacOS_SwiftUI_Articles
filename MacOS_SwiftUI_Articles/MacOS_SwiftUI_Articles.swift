@@ -80,7 +80,7 @@ struct MacOS_SwiftUI_Articles: View {
                     
                 }
                 List (articles) { article in
-                    NavigationLink(destination: SafariView(url: article.url, recordID: article.recordID!)) {
+                    NavigationLink(destination: SafariView(url: article.url, recordID: article.recordID)) {
                         MasterView(article: article)
                     }
                     
